@@ -39,6 +39,7 @@ module.exports = {
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "@typescript-eslint/no-explicit-any": "error",
     "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": 0,
     "react/function-component-definition": [
       2,
       {
