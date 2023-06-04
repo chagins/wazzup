@@ -1,11 +1,16 @@
 import React, { FormEvent, useState } from 'react';
 import { Alert, Box, Collapse, Link, TextField } from '@mui/material';
+import { useAppDispatch } from 'store';
+import { useLazyGetAccountStateQuery } from 'features/api';
+import { setUser } from '../user.slice';
 import { StyledBox, StyledBoxSubmit, StyledSubmit } from './LoginForm.styled';
 
 const helperText = 'The value cannot be empty';
 
 export const LoginForm = () => {
-  const [errorMsg, setErrorMsg] = useState('');
+  const dispatch = useAppDispatch();
+  const [getAccountState, { isError: isAccountError }] = useLazyGetAccountStateQuery();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isIdInstanceNotValid, setIsIdInstanceNotValid] = useState(false);
   const [isApiTokenInstanceNotValid, setIsApiTokenInstanceNotValid] = useState(false);
   const isLoading = false;
@@ -22,11 +27,26 @@ export const LoginForm = () => {
     const apiTokenInstance = formData.get('ApiTokenInstance')?.toString() || '';
     const isApiTokenInstanceValid = !!apiTokenInstance.length;
     setIsApiTokenInstanceNotValid(!isApiTokenInstanceValid);
+
+    if (isIdInstanceValid && isApiTokenInstanceValid) {
+      getAccountState({ apiTokenInstance, idInstance })
+        .then((result) => {
+          if (result.data?.stateInstance === 'authorized') {
+            setErrorMsg(null);
+            dispatch(setUser({ idInstance, apiTokenInstance }));
+            return;
+          }
+          throw new Error();
+        })
+        .catch(() => {
+          setErrorMsg('User is not authorized');
+        });
+    }
   };
 
   return (
     <StyledBox>
-      <Collapse in={false}>
+      <Collapse in={isAccountError}>
         <Alert severity="error">{errorMsg}</Alert>
       </Collapse>
       <Box component="form" onSubmit={onSubmit} noValidate>

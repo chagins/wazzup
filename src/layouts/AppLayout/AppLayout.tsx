@@ -1,10 +1,12 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { LoginForm } from 'features/user';
+import { LoginForm, userModel } from 'features/user';
+import { useAppSelector } from 'store';
 import { StyledContainer, StyledBox } from './AppLayout.styled';
 
 export const AppLayout = () => {
-  const isUserLoggedIn = false;
+  const { isUserLoggedIn } = useAppSelector(userModel.selectUser);
+
   return (
     <StyledBox>
       <StyledContainer maxWidth="xl">{isUserLoggedIn ? <Outlet /> : <LoginForm />}</StyledContainer>

@@ -23,7 +23,7 @@ export const StyledSubmit = styled(Button)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-export const StyledBoxSubmit = styled(Box)(({ theme }) => ({
+export const StyledBoxSubmit = styled(Box)(() => ({
   display: 'flex',
   columnGap: '10px',
   alignItems: 'center',

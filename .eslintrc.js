@@ -19,6 +19,10 @@ module.exports = {
   ],
   "root": true,
   overrides: [
+    {
+      files: ['src/**/*.slice.ts'],
+      rules: { 'no-param-reassign': ['error', { props: false }] },
+    }
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
