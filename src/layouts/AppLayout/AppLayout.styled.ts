@@ -14,7 +14,7 @@ export const StyledBox = styled(Box)(({ theme }) => ({
     left: '0',
     top: '0',
     height: '127px',
-    width: '100vw',
+    width: '100%',
     backgroundColor: theme.palette.background.panel,
   },
 }));
@@ -25,7 +25,7 @@ export const StyledContainer = styled(Container)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     padding: '19px',
   },
-  [theme.breakpoints.down('xl')]: {
+  [theme.breakpoints.down('lg')]: {
     padding: '0',
   },
 }));

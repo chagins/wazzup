@@ -1,5 +1,11 @@
 import React from 'react';
+import { MessageForm } from 'features/messages';
+import { StyledBox } from './MainPage.styled';
 
 export const MainPage = () => {
-  return <div>MainPage</div>;
+  return (
+    <StyledBox>
+      <MessageForm />
+    </StyledBox>
+  );
 };
