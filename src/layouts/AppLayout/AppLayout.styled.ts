@@ -1,5 +1,6 @@
 import { Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import logo from 'assets/svg/wazzup.svg';
 
 export const StyledBox = styled(Box)(({ theme }) => ({
   position: 'relative',
@@ -14,8 +15,8 @@ export const StyledBox = styled(Box)(({ theme }) => ({
     left: '0',
     top: '0',
     height: '127px',
-    width: '100%',
-    backgroundColor: theme.palette.background.panel,
+    width: '100vw',
+    background: `url(${logo}) center / contain no-repeat, ${theme.palette.background.panel}`,
   },
 }));
 
