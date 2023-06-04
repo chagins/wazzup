@@ -22,4 +22,4 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useSendMessageQuery, useLazyGetAccountStateQuery } = apiSlice;
+export const { useLazySendMessageQuery, useLazyGetAccountStateQuery } = apiSlice;

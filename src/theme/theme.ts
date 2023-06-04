@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material';
-import green from '@mui/material/colors/green';
+import lightGreen from '@mui/material/colors/lightGreen';
 
 declare module '@mui/material/styles/createPalette' {
   interface TypeBackground {
@@ -44,7 +44,7 @@ export const theme = createTheme({
       paper: '#f0f2f5',
       paperMessage: '#d9fdd3',
     },
-    primary: green,
+    primary: lightGreen,
   },
   typography: {
     fontFamily:

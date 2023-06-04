@@ -9,11 +9,11 @@ const helperText = 'The value cannot be empty';
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
-  const [getAccountState, { isError: isAccountError }] = useLazyGetAccountStateQuery();
+  const [getAccountState, { isError: isAccountError, isFetching: isAccountFetching }] =
+    useLazyGetAccountStateQuery();
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isIdInstanceNotValid, setIsIdInstanceNotValid] = useState(false);
   const [isApiTokenInstanceNotValid, setIsApiTokenInstanceNotValid] = useState(false);
-  const isLoading = false;
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -72,7 +72,7 @@ export const LoginForm = () => {
           helperText={isApiTokenInstanceNotValid && helperText}
         />
         <StyledBoxSubmit>
-          <StyledSubmit type="submit" fullWidth variant="contained" disabled={isLoading}>
+          <StyledSubmit type="submit" fullWidth variant="contained" disabled={isAccountFetching}>
             Submit
           </StyledSubmit>
           <Link
