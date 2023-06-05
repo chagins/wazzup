@@ -1,4 +1,3 @@
-export * from './LoginForm/LoginForm';
-export * from './Login/Login';
-export * from './InputPhone/InputPhone';
-export * as userModel from './user.slice';
+export * from './LoginForm';
+export * from './Login';
+export * as userModel from './slice/user.slice';

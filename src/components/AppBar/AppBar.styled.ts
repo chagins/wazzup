@@ -4,7 +4,7 @@ import { APP_BAR_HEIGHT } from 'const';
 
 export const StyledToolbar = styled(Toolbar)(() => ({
   display: 'flex',
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
   alignItems: 'center',
   height: APP_BAR_HEIGHT,
 }));

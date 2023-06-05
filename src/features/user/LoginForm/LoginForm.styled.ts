@@ -1,4 +1,5 @@
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { styled } from '@mui/material/styles';
 
 export const StyledBox = styled(Box)(({ theme }) => ({
@@ -18,7 +19,7 @@ export const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const StyledSubmit = styled(Button)(({ theme }) => ({
+export const StyledSubmit = styled(LoadingButton)(({ theme }) => ({
   marginTop: theme.spacing(3),
   marginBottom: theme.spacing(2),
 }));

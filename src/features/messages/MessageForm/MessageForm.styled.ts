@@ -4,7 +4,6 @@ import { styled } from '@mui/material/styles';
 export const StyledBox = styled(Box)(() => ({
   padding: '0 10px',
   width: '100%',
-  display: 'flex',
 }));
 
 export const StyledPaper = styled(Paper)(() => ({

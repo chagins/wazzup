@@ -1,15 +1,15 @@
 import React, { useCallback, KeyboardEvent, useEffect } from 'react';
-import { TextField, Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert } from '@mui/material';
 import { useLazySendMessageQuery } from 'features/api';
-import { useAppSelector } from 'store';
-import { makeChatId } from 'helpers';
+import { useAppSelector } from 'hooks';
+import { userModel } from 'features/user';
+import { getMessagesSettings } from '../slice/messages.slice';
 import { StyledBox, StyledInputBase, StyledPaper } from './MessageForm.styled';
-import { selectUser } from '../messages.slice';
 
 export const MessageForm = () => {
-  const { apiTokenInstance, idInstance } = useAppSelector(selectUser);
-  const [sendMessageQuery, { isError, isSuccess }] = useLazySendMessageQuery();
-  const [phoneNumberValue, setPhoneNumberValue] = React.useState<string>();
+  const { chatId } = useAppSelector(getMessagesSettings);
+  const { apiTokenInstance, idInstance } = useAppSelector(userModel.selectUser);
+  const [sendMessageQuery, { isError }] = useLazySendMessageQuery();
   const [msgValue, setMsgValue] = React.useState<string>();
   const [errMsg, setErrMsg] = React.useState<string>();
 
@@ -17,18 +17,16 @@ export const MessageForm = () => {
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        if (phoneNumberValue && msgValue) {
+        if (msgValue && chatId) {
           sendMessageQuery({
             auth: { apiTokenInstance, idInstance },
-            msg: { chatId: makeChatId(phoneNumberValue), message: msgValue },
+            msg: { chatId, message: msgValue },
           });
           setMsgValue('');
-        } else {
-          setErrMsg('please enter a phone number & message');
         }
       }
     },
-    [apiTokenInstance, idInstance, msgValue, phoneNumberValue, sendMessageQuery]
+    [apiTokenInstance, chatId, idInstance, msgValue, sendMessageQuery]
   );
 
   useEffect(() => {
@@ -43,21 +41,6 @@ export const MessageForm = () => {
 
   return (
     <StyledBox>
-      <TextField
-        margin="none"
-        required
-        label="phone number"
-        placeholder="00000000000"
-        autoComplete="tel"
-        type="tel"
-        autoFocus
-        color="success"
-        variant="standard"
-        value={phoneNumberValue}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          setPhoneNumberValue(event.target.value);
-        }}
-      />
       <StyledPaper elevation={0}>
         <StyledInputBase
           required
@@ -73,7 +56,7 @@ export const MessageForm = () => {
       <Snackbar
         open={!!errMsg}
         autoHideDuration={10000}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         onClose={onCloseSnack}
       >
         <Alert severity="warning" onClose={onCloseSnack}>
