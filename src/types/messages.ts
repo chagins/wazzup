@@ -30,13 +30,13 @@ type TTypeMessage =
   | 'extendedTextMessage';
 
 export interface IMessage {
-  type: TMessageDirectionType;
+  // type: TMessageDirectionType;
   timestamp: number;
   idMessage: string;
-  typeMessage: TTypeMessage;
-  chatId: string;
-  senderId: string;
-  senderName: string;
+  // typeMessage: TTypeMessage;
+  // chatId: string;
+  // senderId: string;
+  // senderName: string;
   textMessage: string;
 }
 
@@ -45,25 +45,22 @@ export interface IGetMsgHistoryParams {
   count: number;
 }
 
-export interface IIncomingNotification {
-  typeWebhook: string;
-  instanceData: {
-    idInstance: number;
-    wid: string;
-    typeInstance: 'whatsapp';
-  };
-  timestamp: number;
-  idMessage: string;
-  senderData: {
-    chatId: string;
-    sender: string;
-    chatName: string;
-    senderName: string;
-  };
-  messageData: {
-    typeMessage: TTypeMessage;
-    textMessageData: {
-      textMessage: string;
+export interface IIncomingReceiveNotification {
+  receiptId: number;
+  body: {
+    idMessage: string;
+    messageData: {
+      extendedTextMessageData: {
+        text: string;
+      };
     };
   };
+}
+
+export interface IIncomingDeleteNotification {
+  result: boolean;
+}
+
+export interface IDeleteNotificationParams {
+  receiptId: number;
 }

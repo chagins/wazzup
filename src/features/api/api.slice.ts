@@ -7,6 +7,9 @@ import {
   IAccountStateResponse,
   IMessage,
   IGetMsgHistoryParams,
+  IIncomingReceiveNotification,
+  IIncomingDeleteNotification,
+  IDeleteNotificationParams,
 } from 'types';
 
 export const apiSlice = createApi({
@@ -35,14 +38,28 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Messages'],
     }),
-    receiveNotification: builder.query<IMessage, IAuthParams>({
+    receiveNotification: builder.query<IIncomingReceiveNotification, IAuthParams>({
       query: ({ apiTokenInstance, idInstance }) => ({
         url: `/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`,
         method: 'GET',
       }),
     }),
+    deleteNotification: builder.query<
+      IIncomingDeleteNotification,
+      { auth: IAuthParams; msg: IDeleteNotificationParams }
+    >({
+      query: ({ auth: { apiTokenInstance, idInstance }, msg: { receiptId } }) => ({
+        url: `/waInstance${idInstance}/deleteNotification/${apiTokenInstance}/${receiptId}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
-export const { useLazySendMessageQuery, useLazyGetAccountStateQuery, useLazyGetMessagesQuery } =
-  apiSlice;
+export const {
+  useLazySendMessageQuery,
+  useLazyGetAccountStateQuery,
+  useLazyGetMessagesQuery,
+  useLazyReceiveNotificationQuery,
+  useLazyDeleteNotificationQuery,
+} = apiSlice;
