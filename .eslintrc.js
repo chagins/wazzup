@@ -19,6 +19,10 @@ module.exports = {
   ],
   "root": true,
   overrides: [
+    {
+      files: ['src/**/*.slice.ts'],
+      rules: { 'no-param-reassign': ['error', { props: false }] },
+    }
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -39,6 +43,8 @@ module.exports = {
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "@typescript-eslint/no-explicit-any": "error",
     "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": 0,
+    "import/no-cycle": 0,
     "react/function-component-definition": [
       2,
       {
@@ -47,9 +53,9 @@ module.exports = {
       },
     ],
     "react/display-name": 0,
-    "no-console": ["error", {"allow": ["error"]}],
+    "no-console": ["error", { "allow": ["error"] }],
     "react/require-default-props": "off",
-    "no-underscore-dangle":  ["error", { "allow": ["_id"] }]
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }]
   },
   'settings': {
     "react": {
